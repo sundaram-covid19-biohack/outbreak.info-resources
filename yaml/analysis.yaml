@@ -1,0 +1,572 @@
+'@context':
+  bioschemas: http://bioschema.org
+  owl: http://www.w3.org/2002/07/owl
+  schema: http://schema.org
+'@graph':
+- '@id': url
+  '@type': rdf:Property
+  marginality: required
+  owl:cardinality: one
+  rdfs:comment: The url of the item
+  rdfs:subClassOf:
+    '@id': https://schema.org/url
+  schema:rangeIncludes:
+    '@id': url
+- '@id': domainName
+  '@type': rdf:Property
+  marginality: required
+  owl:cardinality: one
+  rdfs:comment: The domain name or main site on which webpage or specific url can
+    be found
+  rdfs:subClassOf:
+    '@id': https://schema.org/url
+  schema:rangeIncludes:
+    '@id': url
+- '@id': name
+  '@type': rdf:Property
+  marginality: required
+  owl:cardinality: one
+  rdfs:comment: The name of the item.
+  rdfs:subClassOf:
+    '@id': https://schema.org/name
+  schema:rangeIncludes:
+    '@id': text
+- '@id': description
+  '@type': rdf:Property
+  marginality: required
+  owl:cardinality: one
+  rdfs:comment: A description of the item.
+  rdfs:subClassOf:
+    '@id': https://schema.org/description
+  schema:rangeIncludes:
+    '@id': text
+- '@id': author
+  '@type': rdf:Property
+  marginality: required
+  owl:cardinality: many
+  rdfs:comment: The author of this content or rating.
+  rdfs:subClassOf:
+    '@id': https://schema.org/author
+  schema:rangeIncludes:
+    '@id': author
+- '@id': author.name
+  '@type': rdf:Property
+  marginality: required
+  owl:cardinality: many
+  rdfs:comment: The name of the author as provided by the resource
+  rdfs:subClassOf:
+    '@id': https://schema.org/name
+  schema:rangeIncludes:
+    '@id': text
+- '@id': author.affiliation
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: many
+  rdfs:comment: The affiliation of the author
+  rdfs:subClassOf:
+    '@id': https://schema.org/affiliation
+  schema:rangeIncludes:
+    '@id': text
+- '@id': funder
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: many
+  rdfs:comment: A person or organization that supports (sponsors) something through
+    some kind of financial contribution.
+  rdfs:subClassOf:
+    '@id': https://schema.org/funder
+  schema:rangeIncludes:
+    '@id': text
+- '@id': hasDownloadableContent
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: one
+  rdfs:comment: Indicates the site has content that can be downloaded (raw data, data
+    sheets, charts, etc)
+  rdfs:subClassOf:
+    '@id': na
+  schema:rangeIncludes:
+    '@id': True/False
+- '@id': infectiousAgent
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: many
+  rdfs:comment: The actual infectious agent, such as a specific bacterium
+  rdfs:subClassOf:
+    '@id': https://schema.org/infectiousagent
+  schema:rangeIncludes:
+    '@id': text
+- '@id': infectiousDisease
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: many
+  rdfs:comment: The disease caused by the infectious agent. Important as some agents
+    may cause multiple diseases
+  rdfs:subClassOf:
+    '@id': https://schema.org/infectiousdisease
+  schema:rangeIncludes:
+    '@id': text
+- '@id': license
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: many
+  rdfs:comment: A license document that applies to this content, typically indicated
+    by URL
+  rdfs:subClassOf:
+    '@id': https://schema.org/license
+  schema:rangeIncludes:
+    '@id': text
+- '@id': datePublished
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: one
+  rdfs:comment: PublicationDate of the analysis online if available
+  rdfs:subClassOf:
+    '@id': https://schema.org/datepublished
+  schema:rangeIncludes:
+    '@id': date
+- '@id': dateModified
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: one
+  rdfs:comment: Most recent date for which the analysis model itself was updated
+  rdfs:subClassOf:
+    '@id': https://schema.org/datemodified
+  schema:rangeIncludes:
+    '@id': date
+- '@id': researchArea
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: many
+  rdfs:comment: Area of research in which this type of analysis or analytical models
+    are typically used
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': epidemiology, phylogeny, etc.
+- '@id': analysisTechnique
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: many
+  rdfs:comment: This is the analysis type, analytical technique or mathematical model
+    used in this analysis
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': text
+- '@id': analysisTopic
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: many
+  rdfs:comment: The underlying question, goal, or aim of the analysis
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': text
+- '@id': assumption
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: many
+  rdfs:comment: Statement of assumptions / limitations of the model
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': text
+- '@id': isBasedOn
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: A resource (publication, protocol, dataset, etc) from which this analysis
+    was derived
+  rdfs:subClassOf:
+    '@id': https://schema.org/isbasedon
+  schema:rangeIncludes:
+    '@id': Protocols, publications, guidelines, etc.
+- '@id': isBasedOn.name
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: name of the isBasedOn resource
+  rdfs:subClassOf:
+    '@id': https://schema.org/name
+  schema:rangeIncludes:
+    '@id': text
+- '@id': isBasedOn.type
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: type (publication, protocol, dataset, code, etc.) of the isBasedOn
+    resource
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': https://schema.org/Dataset, https://schema.org/SoftwareSourceCode, https://schema.org/HowTo
+- '@id': isBasedOn.identifier
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: identifier (pmid, WHO protocol id, etc.) of the isBasedOn resource
+  rdfs:subClassOf:
+    '@id': https://schema.org/identifier
+  schema:rangeIncludes:
+    '@id': text
+- '@id': isBasedOn.versionDate
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: date of the version of the isBasedOn resource
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': date
+- '@id': citedBy
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: A resource (publication, protocol, dataset, etc.) which was derived
+    from this protocol
+  rdfs:subClassOf:
+    '@id': https://schema.org/citation
+  schema:rangeIncludes:
+    '@id': Protocols/guidelines, publications, analysis, dataset, etc
+- '@id': citedBy.name
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: name of the citedBy resource
+  rdfs:subClassOf:
+    '@id': https://schema.org/name
+  schema:rangeIncludes:
+    '@id': text
+- '@id': citedBy.type
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: type (publication, protocol, dataset, code, etc.) of the citedBy resource
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': Protocols/guidelines, publications, analysis, dataset, etc
+- '@id': citedBy.identifier
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: identifier (pmid, WHO protocol id, etc.) of the citedby resource
+  rdfs:subClassOf:
+    '@id': https://schema.org/identifier
+  schema:rangeIncludes:
+    '@id': text
+- '@id': relatedTo
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: Other resources related to, but not a derivative of nor derived from
+    this analysis
+  rdfs:subClassOf:
+    '@id': https://schema.org/relatedto
+  schema:rangeIncludes:
+    '@id': text
+- '@id': relatedTo.name
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: name of related resource
+  rdfs:subClassOf:
+    '@id': https://schema.org/name
+  schema:rangeIncludes:
+    '@id': text
+- '@id': relatedTo.type
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: type of related resource
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': publications, analysis, datasets, clinicaltrials, etc.
+- '@id': relatedTo.identifier
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: identifier (if available_ of related resource
+  rdfs:subClassOf:
+    '@id': https://schema.org/identifier
+  schema:rangeIncludes:
+    '@id': text
+- '@id': contributor
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: A secondary contributor to the CreativeWork or Event.
+  rdfs:subClassOf:
+    '@id': https://schema.org/contributor
+  schema:rangeIncludes:
+    '@id': person/organization
+- '@id': maintainer
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: A maintainer of a Dataset, software package (SoftwareApplication),
+    or other Project.
+  rdfs:subClassOf:
+    '@id': https://pending.schema.org/maintainer
+  schema:rangeIncludes:
+    '@id': person/organization
+- '@id': keywords
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: many
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': https://schema.org/keywords
+  schema:rangeIncludes:
+    '@id': text
+- '@id': ''
+  '@type': rdf:Property
+  marginality: ''
+  owl:cardinality: many
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': ''
+  '@type': rdf:Property
+  marginality: ''
+  owl:cardinality: many
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': ''
+  '@type': rdf:Property
+  marginality: ''
+  owl:cardinality: many
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': ''
+  '@type': rdf:Property
+  marginality: ''
+  owl:cardinality: many
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': ''
+  '@type': rdf:Property
+  marginality: ''
+  owl:cardinality: many
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': ''
+  '@type': rdf:Property
+  marginality: ''
+  owl:cardinality: many
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': ''
+  '@type': rdf:Property
+  marginality: ''
+  owl:cardinality: many
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': ''
+  '@type': rdf:Property
+  marginality: ''
+  owl:cardinality: many
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': ''
+  '@type': rdf:Property
+  marginality: ''
+  owl:cardinality: many
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': isAccessibleForFree
+  '@type': rdf:Property
+  marginality: ''
+  owl:cardinality: many
+  rdfs:comment: A flag to signal that the item, event, or place is accessible for
+    free
+  rdfs:subClassOf:
+    '@id': https://schema.org/isaccessibleforfree
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': searchable
+  '@type': rdf:Property
+  marginality: not important
+  owl:cardinality: many
+  rdfs:comment: indicates that there is a search function
+  rdfs:subClassOf:
+    '@id': na
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': inLanguage
+  '@type': rdf:Property
+  marginality: not important
+  owl:cardinality: many
+  rdfs:comment: The language of the content or performance or used in an action
+  rdfs:subClassOf:
+    '@id': https://schema.org/inlanguage
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': audience
+  '@type': rdf:Property
+  marginality: not important
+  owl:cardinality: many
+  rdfs:comment: An intended audience, i.e. a group for whom something was created.
+  rdfs:subClassOf:
+    '@id': https://schema.org/audience
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': interactivityType
+  '@type': rdf:Property
+  marginality: not important
+  owl:cardinality: many
+  rdfs:comment: The predominant mode of learning supported by the learning resource.
+    Acceptable values are 'active', 'expositive', or 'mixed'.
+  rdfs:subClassOf:
+    '@id': https://schema.org/interactivitytype
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': singlePageApplication
+  '@type': rdf:Property
+  marginality: not important
+  owl:cardinality: many
+  rdfs:comment: 'indicates whether this is a page of a much larger website (such as
+    a medical institution), or whether this site exists on its own. '
+  rdfs:subClassOf:
+    '@id': na
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': hasHelpResource
+  '@type': rdf:Property
+  marginality: not important
+  owl:cardinality: many
+  rdfs:comment: indicates whether documentation or a help resource is available for
+    use
+  rdfs:subClassOf:
+    '@id': na
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': searchResult
+  '@type': rdf:Property
+  marginality: not important
+  owl:cardinality: many
+  rdfs:comment: Indicates whether the url points to an engine's search results
+  rdfs:subClassOf:
+    '@id': na
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': hasLogin
+  '@type': rdf:Property
+  marginality: not important
+  owl:cardinality: many
+  rdfs:comment: indicates whether the resource has or requires a login to access
+  rdfs:subClassOf:
+    '@id': na
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': hasAPI
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: one
+  rdfs:comment: 'Indicates that an application programming interface is available
+    with which to interact with the underlying data. '
+  rdfs:subClassOf:
+    '@id': na
+  schema:rangeIncludes:
+    '@id': True/False
+- '@id': commercial
+  '@type': rdf:Property
+  marginality: ''
+  owl:cardinality: many
+  rdfs:comment: indiciates whether the author is a commercial industry
+  rdfs:subClassOf:
+    '@id': na
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': ''
+  '@type': rdf:Property
+  marginality: ''
+  owl:cardinality: many
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': ''
+  '@type': rdf:Property
+  marginality: ''
+  owl:cardinality: many
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': ''
+  '@type': rdf:Property
+  marginality: ''
+  owl:cardinality: many
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': Example records below
+  '@type': rdf:Property
+  marginality: ''
+  owl:cardinality: many
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': ''
+  '@type': rdf:Property
+  marginality: ''
+  owl:cardinality: many
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': epirisk.net
+  schema:rangeIncludes:
+    '@id': Risk of importing cases
+- '@id': ''
+  '@type': rdf:Property
+  marginality: ''
+  owl:cardinality: many
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': http://epirisk.net/#eyjxdwvyesi6eyj0cmf2zwxmzxzlbci6mswicgvyaw9kijoxmcwidg90ywxdyxnlcyi6mzeymdasimrpc3ryawj1dglvbk1vzguioij1bmlmb3jtiiwibw9udggioijkyw4ilcjnzw9mzxzlbci6imjhc2luiiwic291cmnlcyi6w3siawqiojq3nywiy2fzzxmiojf9xx0sim1hcci6eyjjzw50zxiiolsxnjqundk0mda2mtkwntkynywxns42ndk4mdg2mjcxmtayov0sinpvb20iojauodcymzgxnja3mjy1mdy4lcjwaxrjaci6mcwiymvhcmluzyi6mh19
+  schema:rangeIncludes:
+    '@id': https://datastudio.google.com/reporting/3ffd36c3-0272-4510-a140-39e288a9f15c/page/U5lCB
+- '@id': ''
+  '@type': rdf:Property
+  marginality: ''
+  owl:cardinality: many
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': ''
+'@id': http://sulab.org/
