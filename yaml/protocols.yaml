@@ -1,0 +1,377 @@
+'@context':
+  bioschemas: http://bioschema.org
+  owl: http://www.w3.org/2002/07/owl
+  schema: http://schema.org
+'@graph':
+- '@id': url
+  '@type': rdf:Property
+  marginality: required
+  owl:cardinality: many
+  rdfs:comment: url where the protocol can be found
+  rdfs:subClassOf:
+    '@id': https://schema.org/url
+  schema:rangeIncludes:
+    '@id': url
+- '@id': name
+  '@type': rdf:Property
+  marginality: required
+  owl:cardinality: one
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': https://schema.org/name
+  schema:rangeIncludes:
+    '@id': text
+- '@id': description
+  '@type': rdf:Property
+  marginality: required
+  owl:cardinality: one
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': https://schema.org/description
+  schema:rangeIncludes:
+    '@id': text
+- '@id': status
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: one
+  rdfs:comment: The status of the protocol
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': text
+- '@id': MeasurementTechnique
+  '@type': rdf:Property
+  marginality: required
+  owl:cardinality: one
+  rdfs:comment: This is the measurement technique or assay type covered described
+    by the protocol
+  rdfs:subClassOf:
+    '@id': dataset:measurementtechnique
+  schema:rangeIncludes:
+    '@id': text
+- '@id': author
+  '@type': rdf:Property
+  marginality: required
+  owl:cardinality: many
+  rdfs:comment: person, people, or organization that created the protocol
+  rdfs:subClassOf:
+    '@id': https://schema.org/author
+  schema:rangeIncludes:
+    '@id': Schema:Person or Schema:Organization
+- '@id': author.name
+  '@type': rdf:Property
+  marginality: required
+  owl:cardinality: many
+  rdfs:comment: The name of the author as provided by the resource
+  rdfs:subClassOf:
+    '@id': https://schema.org/name
+  schema:rangeIncludes:
+    '@id': ''
+- '@id': author.affiliation
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: many
+  rdfs:comment: The author's affiliation(s)
+  rdfs:subClassOf:
+    '@id': https://schema.org/affiliation
+  schema:rangeIncludes:
+    '@id': text
+- '@id': material
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: many
+  rdfs:comment: material or reagent used in this protocol
+  rdfs:subClassOf:
+    '@id': https://schema.org/material
+  schema:rangeIncludes:
+    '@id': Schema:Product
+- '@id': material.Name
+  '@type': rdf:Property
+  marginality: recommended if material included
+  owl:cardinality: many
+  rdfs:comment: The name of the material or reagent
+  rdfs:subClassOf:
+    '@id': https://schema.org/name
+  schema:rangeIncludes:
+    '@id': text
+- '@id': material.manufacturer
+  '@type': rdf:Property
+  marginality: recommended if material included
+  owl:cardinality: many
+  rdfs:comment: The manufacturer, brand, or vendor of the material or reagent
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': text
+- '@id': material.identifier
+  '@type': rdf:Property
+  marginality: recommended if material included
+  owl:cardinality: many
+  rdfs:comment: The catalog number or identifier of the material or reagent
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': text
+- '@id': material.type
+  '@type': rdf:Property
+  marginality: recommended if material included
+  owl:cardinality: many
+  rdfs:comment: Type of material
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': chemical reagent, biological sample, PPE, etc.
+- '@id': instrument
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: For LabProtocols it would be a laboratory equipment use by a person
+    to follow one or more steps described in this LabProtocol.
+  rdfs:subClassOf:
+    '@id': bioschemas:instrument
+  schema:rangeIncludes:
+    '@id': Bioschemas:instrument
+- '@id': instrument.Name
+  '@type': rdf:Property
+  marginality: recommended if instrument included
+  owl:cardinality: many
+  rdfs:comment: The name/model number of the instrument
+  rdfs:subClassOf:
+    '@id': https://schema.org/name
+  schema:rangeIncludes:
+    '@id': text
+- '@id': instrument.manufacturer
+  '@type': rdf:Property
+  marginality: recommended if instrument included
+  owl:cardinality: many
+  rdfs:comment: The manufacturer, brand, or vendor of the instrument
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': text
+- '@id': warning
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: Precautions, warnings, and/or safety warnings associated with the
+    protocol
+  rdfs:subClassOf:
+    '@id': https://schema.org/warning
+  schema:rangeIncludes:
+    '@id': text
+- '@id': license
+  '@type': rdf:Property
+  marginality: required
+  owl:cardinality: one
+  rdfs:comment: License
+  rdfs:subClassOf:
+    '@id': https://schema.org/license
+  schema:rangeIncludes:
+    '@id': text
+- '@id': funder
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: many
+  rdfs:comment: The funder of the study
+  rdfs:subClassOf:
+    '@id': https://schema.org/funder
+  schema:rangeIncludes:
+    '@id': text
+- '@id': datePublished
+  '@type': rdf:Property
+  marginality: required
+  owl:cardinality: one
+  rdfs:comment: PublicationDate of the protocol online if available
+  rdfs:subClassOf:
+    '@id': https://schema.org/datepublished
+  schema:rangeIncludes:
+    '@id': date
+- '@id': dateModified
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: Date of protocol update
+  rdfs:subClassOf:
+    '@id': https://schema.org/datemodified
+  schema:rangeIncludes:
+    '@id': date
+- '@id': correction
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: statement of what was updated/changed since prior version
+  rdfs:subClassOf:
+    '@id': https://pending.schema.org/correction
+  schema:rangeIncludes:
+    '@id': text
+- '@id': identifier
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: one
+  rdfs:comment: identifier for the protocol
+  rdfs:subClassOf:
+    '@id': https://schema.org/identifier
+  schema:rangeIncludes:
+    '@id': text
+- '@id': citedBy
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: Associated guidelines, protocols, publications, etc. that include,
+    adapt, modify, expand, etc. this protocol.
+  rdfs:subClassOf:
+    '@id': https://schema.org/citation
+  schema:rangeIncludes:
+    '@id': Protocols/guidelines, publications, analysis, dataset, etc
+- '@id': citedBy.name
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: name of the resource (publication, protocol, etc.) which was derived
+    from this protocol
+  rdfs:subClassOf:
+    '@id': https://schema.org/name
+  schema:rangeIncludes:
+    '@id': text
+- '@id': citedBy.type
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: type of resource which was derived from this protocol
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': Protocols/guidelines, publications, analysis, dataset, etc
+- '@id': citedBy.identifier
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: identifier for this resource which was derived from this protocol
+  rdfs:subClassOf:
+    '@id': https://schema.org/identifier
+  schema:rangeIncludes:
+    '@id': text
+- '@id': isBasedOn
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: Associated resource (guidelines, protocols, publications, etc.) from
+    which this protocol was derived
+  rdfs:subClassOf:
+    '@id': https://schema.org/isbasedon
+  schema:rangeIncludes:
+    '@id': Protocols, publications, guidelines, etc.
+- '@id': isBasedOn.name
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: name of the associated resource from which this protocol was derived
+  rdfs:subClassOf:
+    '@id': https://schema.org/name
+  schema:rangeIncludes:
+    '@id': text
+- '@id': isBasedOn.type
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: Type of resource (publication, analysis, ClinicalTrial, dataset, etc.)
+    from which this protocol was derived
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': https://schema.org/Dataset, https://schema.org/SoftwareSourceCode, https://schema.org/HowTo
+- '@id': isBasedOn.identifier
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: Identifier for the resource
+  rdfs:subClassOf:
+    '@id': https://schema.org/identifier
+  schema:rangeIncludes:
+    '@id': text
+- '@id': isBasedOn.versionDate
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: date of the version of the resource from which this protocol was derived
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': date
+- '@id': relatedTo
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: Other resources related to, but not a derivative of nor derived from
+    this protocol
+  rdfs:subClassOf:
+    '@id': https://schema.org/relatedto
+  schema:rangeIncludes:
+    '@id': text
+- '@id': relatedTo.name
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: name of related resource
+  rdfs:subClassOf:
+    '@id': https://schema.org/name
+  schema:rangeIncludes:
+    '@id': text
+- '@id': relatedTo.type
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: type of related resource
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': publications, analysis, datasets, clinicaltrials, etc.
+- '@id': relatedTo.identifier
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: identifier (if available_ of related resource
+  rdfs:subClassOf:
+    '@id': https://schema.org/identifier
+  schema:rangeIncludes:
+    '@id': text
+- '@id': keywords
+  '@type': rdf:Property
+  marginality: recommended
+  owl:cardinality: many
+  rdfs:comment: ''
+  rdfs:subClassOf:
+    '@id': https://schema.org/keywords
+  schema:rangeIncludes:
+    '@id': text
+- '@id': usedToGenerate
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: Type of evidence/data generated by the protocol
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': text
+- '@id': inComplianceWith
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: many
+  rdfs:comment: Guidelines or Standards to which these protocols adhere. ie- GMP,
+    GCP, other EQUATOR guidelines. Useful for selecting protocols where certain standards/guidelines
+    must be met
+  rdfs:subClassOf:
+    '@id': ''
+  schema:rangeIncludes:
+    '@id': text
+- '@id': duration
+  '@type': rdf:Property
+  marginality: optional
+  owl:cardinality: one
+  rdfs:comment: The time it takes to actually carry out the protocol, in ISO 8601
+    date format.
+  rdfs:subClassOf:
+    '@id': bioschemas:duration
+  schema:rangeIncludes:
+    '@id': date/time
+'@id': http://sulab.org/
