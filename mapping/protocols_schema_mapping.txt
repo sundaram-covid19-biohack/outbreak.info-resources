@@ -1,0 +1,39 @@
+url	uri
+name	title
+description	
+status	doi_status
+MeasurementTechnique	
+author	
+author.name	
+author.affiliation	
+material	
+material.Name	
+material.manufacturer	
+material.identifier	
+material.type	
+instrument	
+instrument.Name	
+instrument.manufacturer	
+license	
+funder	
+datePublished	
+dateModified	
+correction	
+identifier	doi
+citedBy	
+citedBy.name	
+citedBy.type	
+citedBy.identifier	
+isBasedOn	
+isBasedOn.name	
+isBasedOn.type	
+isBasedOn.identifier	
+isBasedOn.versionDate	
+relatedTo	
+relatedTo.name	
+relatedTo.type	
+relatedTo.identifier	
+keywords	
+usedToGenerate	
+inComplianceWith	
+duration	
