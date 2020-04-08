@@ -12,6 +12,8 @@ from encodeproject import download as encode_download  # type: ignore
 from colorama import Fore, Style
 from datetime import datetime
 from datetime import date
+import json
+
 
 # If set to True, will only process the number of terms
 # specified by the DEFAULT_TEST_COUNT
@@ -61,6 +63,19 @@ def retrieve_datasets(terms_list, outdir):
 
         if not os.path.exists(outfile):
             logging.error("output file '{}' does not exist".format(outfile))
+        else:
+            reformatted_outfile = outfile.replace('.json', '.reformatted.json')
+
+            with open(outfile) as json_fh:
+                lookup = json.load(json_fh)
+
+            with open(reformatted_outfile, 'w') as fout:
+                json.dump(lookup, fout, indent=2)
+
+            logging.info("Wrote reformatted output file '{}'".format(reformatted_outfile))
+            if g_verbose:
+                print("Wrote reformatted output file '{}'".format(reformatted_outfile))
+
         if g_test_mode:
             if i > g_test_count:
                 break
