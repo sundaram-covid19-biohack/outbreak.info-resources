@@ -1,3 +1,16 @@
+##
+## This is a two-column, tab-delimited file.
+##
+## The first column specifies the protocols schema term.
+## The second column specifies the candidate param/term in the protocols.io JSON content.
+##
+## This file will be used by the extract_terms_from_protocols_io_json.py executable
+## to derive the values and then generate a JSON output file containing all extracted values.
+##
+## Might be a good idea to insert some value/string in the second column so that on visual
+## inspection, it will be obvious which of the schema terms do not have a corresponding candidate
+## protocols term.
+##
 url	uri
 name	title
 description	
