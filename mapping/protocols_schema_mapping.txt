@@ -18,7 +18,7 @@ status	doi_status
 MeasurementTechnique	
 author	
 author.name	authors.[*].name
-author.affiliation	
+author.affiliation	authors.[*].affiliation
 material	
 material.Name	
 material.manufacturer	
