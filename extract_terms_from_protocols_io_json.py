@@ -12,8 +12,8 @@ from colorama import Fore, Style
 from datetime import datetime
 from datetime import date
 
-SCHEMAS_TERM_IDX = 0
-PROTOCOLS_TERM_IDX = 1
+BIOSCHEMAS_TERM_IDX = 0
+JSON_SEARCH_PARAM_IDX = 1
 
 DEFAULT_VERBOSE = False
 
@@ -25,6 +25,20 @@ LOG_LEVEL = logging.INFO
 
 g_verbose = False
 
+def get_list_of_values(json_data, text):
+    """Retrieve a list of values
+    """
+    search_text = '$.' + text
+    logging.info("Using jsonpath search text '{}'".format(search_text))
+    jsonpath_expression = parse(search_text)
+    matches = jsonpath_expression.find(json_data)
+    values = []
+    if matches:
+        for match in matches:
+            val = match.value
+            values.append(val)
+    return values
+    
 def extract_values(protocols_json_file: str = None, protocols_schema_mapping_file: str = None, outfile: str = None) -> None:
     """Extract the values from the protocols.io JSON file.
     The protocols schema mapping file will drive the process.
@@ -33,7 +47,7 @@ def extract_values(protocols_json_file: str = None, protocols_schema_mapping_fil
     :param outfile: {str}
     :returns None:
     """
-    lookup = load_mapping_lookup(protocols_schema_mapping_file)
+    lookup = load_bioschema_term_to_json_search_param_lookup(protocols_schema_mapping_file)
     
     results = []
 
@@ -44,27 +58,38 @@ def extract_values(protocols_json_file: str = None, protocols_schema_mapping_fil
         if 'items' not in json_data:
             logging.error("'items' does not exist in the JSON file '{}'".format(protocols_json_file))
             sys.exit(1)
-
-        data_lookup = {}
         
         item_ctr = 0
         
         for item_lookup in json_data['items']:
+
             item_ctr += 1
 
+            data_lookup = {}
+
             for term in lookup:
-                source = lookup[term]
-                if source is None or source == '' or source == 'N/A':
-                    logging.info("There is no mapping for term '{}'".format(term))
+                logging.info("Processing bioschema term '{}'".format(term))
+                json_search_param = lookup[term]
+                logging.info("json search param '{}'".format(json_search_param))
+                if json_search_param is None or json_search_param == '' or json_search_param == 'N/A':
+                    logging.info("There is no valid json search param for bioschema term '{}'".format(term))
                     continue
                 else:
-                    value = get_param_value(item_lookup, term)
-                    if value is None or value == '':
-                        logging.info("Did not find any value for term '{}'".format(term))
-                        continue
+
+                    if '[' in json_search_param:
+                        values = get_list_of_values(item_lookup, json_search_param)
+                        if len(values) > 0:
+                            logging.info("Found the following values for bioschema term '{}': '{}'".format(term, ', '.join(values)))
+                            data_lookup[term] = values
+
                     else:
-                        logging.info("Found value '{}' for term '{}'".format(value, term))
-                        data_lookup[term] = value
+                        value = get_param_value(item_lookup, json_search_param)
+                        if value is None or value == '':
+                            logging.info("Did not find any value for bioschema term '{}'".format(term))
+                            continue
+                        else:
+                            logging.info("Found value '{}' for bioschema term '{}'".format(value, term))
+                            data_lookup[term] = value
             
             results.append(data_lookup)
         
@@ -104,13 +129,13 @@ def get_param_value(json_data: dict = None, text: str = None) -> str:
         return None
 
 
-def load_mapping_lookup(infile: str = None) -> dict:
+def load_bioschema_term_to_json_search_param_lookup(infile: str = None) -> dict:
     """Parse the protocols schema mapping tab-delimited file and load the tuples into
     a dictionary.
     :param infile: {str}
     :returns lookup: {dict}
     """
-    mapping_lookup = {}
+    bioschema_term_to_json_search_param_lookup = {}
 
     logging.info("Will parse '{}'".format(infile))
     
@@ -121,12 +146,14 @@ def load_mapping_lookup(infile: str = None) -> dict:
                 continue
             parts = line.split("\t")
             if len(parts) > 1:
-                protocol_term = parts[PROTOCOLS_TERM_IDX] 
-                schema_term = parts[SCHEMAS_TERM_IDX]
-                if protocol_term is not None and schema_term is not None:                
-                    mapping_lookup[protocol_term] =  schema_term
-    logging.info("Loaded the mapping lookup")
-    return mapping_lookup
+                json_search_param = parts[JSON_SEARCH_PARAM_IDX] 
+                bioschema_term = parts[BIOSCHEMAS_TERM_IDX]
+                if bioschema_term is not None and json_search_param is not None:                
+                    bioschema_term_to_json_search_param_lookup[bioschema_term] =  json_search_param
+    
+    logging.info("Loaded the bioschema term to json search param lookup")
+    
+    return bioschema_term_to_json_search_param_lookup
 
 
 
