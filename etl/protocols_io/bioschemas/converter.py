@@ -95,9 +95,41 @@ class Converter(Con):
                                 else:
                                     data_lookup[term] = value
                 
-                results[doi] = data_lookup
+                results[doi] = self._transform_authors(data_lookup)
             
             logging.info("Processed '{}' items in JSON file '{}'".format(item_ctr, protocols_json_file))
                     
         self._write_output_file(results, outfile)
 
+    def _transform_authors(self, data_lookup):
+        """Transform the data structure containing the author metadata
+        :param data_lookup: {dict}
+        :returns transformed_lookup: {dict}
+        """
+        logging.info("Going to transform the author data structure")
+        transformed_lookup = {}
+        
+        author_name_list = None
+        affiliation_list = None
+
+        for param in data_lookup:
+        
+            logging.info("Processing param '{}'".format(param))
+        
+            if param == 'author.name':
+                author_name_list = data_lookup[param]
+            elif param == 'author.affiliation':
+                affiliation_list = data_lookup[param]
+            else:
+                transformed_lookup[param] = data_lookup[param]
+        
+        author_list = []
+        
+        for i, author_name in enumerate(author_name_list):
+            affiliation = affiliation_list[i]
+            logging.info("Processing author name '{}' affiliation '{}'".format(author_name, affiliation))
+            author_list.append({'name': author_name, 'affiliation': affiliation})
+        
+        transformed_lookup['author'] = author_list
+        
+        return transformed_lookup
