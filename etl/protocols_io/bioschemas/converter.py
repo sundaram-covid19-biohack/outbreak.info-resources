@@ -49,7 +49,7 @@ class Converter(Con):
 
         lookup = self._load_bioschema_term_to_json_search_param_lookup(protocols_schema_mapping_file)
         
-        results = []
+        results = {}
 
         with open(protocols_json_file, 'r') as json_fh:
             
@@ -66,6 +66,7 @@ class Converter(Con):
                 item_ctr += 1
 
                 data_lookup = {}
+                doi = None
 
                 for term in lookup:
                     logging.info("Processing bioschema term '{}'".format(term))
@@ -89,9 +90,12 @@ class Converter(Con):
                                 continue
                             else:
                                 logging.info("Found value '{}' for bioschema term '{}'".format(value, term))
-                                data_lookup[term] = value
+                                if term == 'identifier':
+                                    doi = value
+                                else:
+                                    data_lookup[term] = value
                 
-                results.append(data_lookup)
+                results[doi] = data_lookup
             
             logging.info("Processed '{}' items in JSON file '{}'".format(item_ctr, protocols_json_file))
                     
