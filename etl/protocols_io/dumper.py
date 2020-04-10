@@ -24,7 +24,7 @@ DEFAULT_TEST_COUNT = 2
 
 DEFAULT_VERBOSE = False
 
-DEFAULT_COVID_TERMS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'covid_terms.txt')
+DEFAULT_COVID_TERMS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../covid_terms.txt')
 
 DEFAULT_OUTDIR = "/tmp/" + os.path.basename(__file__) + '/' + str(datetime.today().strftime('%Y-%m-%d-%H%M%S'))
 
