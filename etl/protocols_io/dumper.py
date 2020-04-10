@@ -22,6 +22,10 @@ DEFAULT_TEST_MODE = False
 # This sets the default number of terms to be processed
 DEFAULT_TEST_COUNT = 2
 
+# The number of seconds to pause between requests to the protocols.io server
+DEFAULT_PAUSE_SECONDS = 5
+
+
 DEFAULT_VERBOSE = False
 
 DEFAULT_COVID_TERMS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../covid_terms.txt')
@@ -36,7 +40,7 @@ g_verbose = False
 g_test_mode = False
 g_test_count = 0
 
-def retrieve_datasets(terms_list, outdir):
+def retrieve_datasets(terms_list, outdir, pause_seconds):
     """Retrieve the datasets (JSON format) from protocols.io
     for the specified terms.
     :param terms_list: {list} the list of terms
@@ -79,6 +83,10 @@ def retrieve_datasets(terms_list, outdir):
         if g_test_mode:
             if i > g_test_count:
                 break
+        
+        if pause_seconds is not None and pause_seconds > 0:
+            logging.info("Going to pause for '{}' seconds".format(pause_seconds))
+            time.sleep(pause_seconds)
 
 
 def load_terms_list(terms_file):
@@ -108,7 +116,8 @@ def load_terms_list(terms_file):
 @click.option('--verbose', is_flag=True, help="Whether to execute in verbose mode - default is {}".format(DEFAULT_VERBOSE))
 @click.option('--test_mode', is_flag=True, help="Whether to execute in test mode (will limit number of terms processed - default is {})".format(DEFAULT_TEST_MODE))
 @click.option('--test_count', help="The number of terms to process when executing in test mode - default is {}".format(DEFAULT_TEST_COUNT))
-def main(outdir, terms_file, logfile, verbose, test_mode, test_count):
+@click.option('--pause_seconds', help="The number of seconds to pause in between requests to the protocols.io server - default is {}".format(DEFAULT_PAUSE_SECONDS))
+def main(outdir, terms_file, logfile, verbose, test_mode, test_count, pause_seconds):
     """Retrieve datasets (JSON format) from protocols.io for covid-related terms.
     The terms are specified via the --terms_file option.  This should be a newline
     separated list of terms.
@@ -117,6 +126,11 @@ def main(outdir, terms_file, logfile, verbose, test_mode, test_count):
     if verbose is None:
         verbose = DEFAULT_VERBOSE
         print(Fore.YELLOW + "--verbose was not specified and therefore was set to default '{}'".format(verbose))
+        print(Style.RESET_ALL + '', end='')
+
+    if pause_seconds is None:
+        pause_seconds = DEFAULT_PAUSE_SECONDS
+        print(Fore.YELLOW + "--pause_seconds was not specified and therefore was set to default '{}'".format(pause_seconds))
         print(Style.RESET_ALL + '', end='')
 
     global g_verbose
@@ -169,7 +183,7 @@ def main(outdir, terms_file, logfile, verbose, test_mode, test_count):
 
     terms_list = load_terms_list(terms_file)
 
-    retrieve_datasets(terms_list, outdir)
+    retrieve_datasets(terms_list, outdir, pause_seconds)
 
 
 if __name__ == "__main__":
